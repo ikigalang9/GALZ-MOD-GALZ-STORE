@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niez Cookies - Order Kue Lebaran</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            background: #fff3e0;
+            background-image: radial-gradient(circle at 10% 30%, #ffedd4, #fde3c5);
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #6b3f1f;
+            text-shadow: 3px 3px 0 #f7c891;
+        }
+        .header h1 span {
+            color: #a75823;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 3.8rem;
+        }
+        .header p {
+            font-size: 1.4rem;
+            color: #784421;
+            background: #fae1b8;
+            display: inline-block;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            margin-top: 0.5rem;
+        }
+        /* Form data diri */
+        .form-pembeli {
+            background: rgba(255, 245, 225, 0.9);
+            border-radius: 40px;
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid #e6b97b;
+            box-shadow: 0 10px 20px rgba(150, 80, 20, 0.2);
+        }
+        .form-pembeli h3 {
+            font-size: 2rem;
+            color: #6b3f1f;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px dashed #c4945c;
+            padding-bottom: 0.8rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #5a3a20;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            margin-left: 0.5rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            font-size: 1.2rem;
+            border: 2px solid #e6b97b;
+            border-radius: 50px;
+            background: white;
+            transition: 0.2s;
+            outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #b45f2b;
+            box-shadow: 0 0 0 3px #ffdbb0;
+        }
+        .form-group textarea {
+            border-radius: 30px;
+            resize: vertical;
+        }
+        /* kartu produk */
+        .produk-card {
+            background: rgba(255, 250, 240, 0.9);
+            border-radius: 40px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #f7ca9a;
+            box-shadow: 0 12px 20px -10px #9d6b3e;
+        }
+        .produk-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .nama-produk {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #482818;
+            background: #ffe6c9;
+            padding: 0.2rem 1.6rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-detail {
+            background: #f8bc7c;
+            border: none;
+            font-size: 2.6rem;
+            padding: 0.2rem 1.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #8f572b;
+            border: 1px solid #da9b5f;
+            transition: 0.15s;
+        }
+        .btn-detail:hover {
+            background: #ffae5c;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #8f572b;
+        }
+        .btn-detail:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #8f572b;
+        }
+        /* detail harga dan jumlah */
+        .detail-produk {
+            background: #fbeada;
+            border-radius: 35px;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            border-left: 8px solid #d68b44;
+        }
+        .harga-info {
+            font-size: 1.8rem;
+            color: #8e411b;
+            background: #fff0da;
+            padding: 0.4rem 1.5rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.1s;
+            border: 1px solid #e3a56d;
+        }
+        .harga-info:active {
+            background: #ffe1be;
+            transform: scale(0.97);
+        }
+        .jumlah-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #b27d50;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 0 #62482d;
+        }
+        .jumlah-control span {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 600;
+            min-width: 3rem;
+            text-align: center;
+        }
+        .btn-jumlah {
+            background: #f5bc7c;
+            border: none;
+            font-size: 2rem;
+            font-weight: bold;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #9b6636;
+            transition: 0.1s;
+            color: #3e2a15;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-jumlah:hover {
+            background: #ffb259;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 #9b6636;
+        }
+        .btn-jumlah:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #9b6636;
+        }
+        .detail-produk.hidden {
+            display: none;
+        }
+        /* tombol order WA */
+        .wa-order {
+            margin: 2.5rem 0 1.5rem;
+            text-align: center;
+        }
+        .wa-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: #25D366;
+            color: white;
+            font-size: 1.9rem;
+            font-weight: 600;
+            padding: 1.2rem 2.5rem;
+            border-radius: 80px;
+            text-decoration: none;
+            box-shadow: 0 12px 0 #128C7E, 0 6px 20px rgba(0,0,0,0.2);
+            border: 2px solid #fbe2b6;
+            transition: 0.1s;
+        }
+        .wa-link i {
+            font-size: 3rem;
+        }
+        .wa-link:hover {
+            background: #20c05c;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 0 #128C7E, 0 10px 25px rgba(0,100,50,0.3);
+        }
+        .wa-link:active {
+            transform: translateY(6px);
+            box-shadow: 0 4px 0 #128C7E;
+        }
+        .footer {
+            text-align: center;
+            color: #9d632c;
+            border-top: 3px dashed #e5b27c;
+            padding-top: 2rem;
+            font-size: 1.2rem;
+        }
+        .info-note {
+            background: #fae1b8;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0 0.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #59371c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>niez <span>cookies</span></h1>
+        <p>🍪 kue lebaran istimewa</p>
+    </div>
+
+    <!-- FORM DATA DIRI -->
+    <div class="form-pembeli">
+        <h3><i class="fas fa-user-pen"></i> Lengkapi Data Pemesan</h3>
+        <div class="form-group">
+            <label>Nama <span style="color:#b34b1c;">*</span></label>
+            <input type="text" id="namaPembeli" placeholder="contoh: Siti Aminah" value="">
+        </div>
+        <div class="form-group">
+            <label>Alamat Lengkap <span style="color:#b34b1c;">*</span></label>
+            <textarea id="alamatPembeli" rows="2" placeholder="Jalan, RT/RW, kelurahan, kecamatan, kota, kode pos"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Nomor HP (aktif) <span style="color:#b34b1c;">*</span></label>
+            <input type="tel" id="hpPembeli" placeholder="08123456789">
+        </div>
+        <div class="form-group">
+            <label>Catatan (opsional)</label>
+            <input type="text" id="catatanPembeli" placeholder="misal: antar jam 10 pagi, warna dus, dll">
+        </div>
+    </div>
+
+    <!-- DAFTAR PRODUK - semua mulai dari 0 -->
+    <!-- Produk 1: Nastar -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-crown"></i> nastar</span>
+            <button class="btn-detail" onclick="toggleDetail('detailNastar')">👇</button>
+        </div>
+        <div id="detailNastar" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('nastar')">
+                <i class="fas fa-tag"></i> <span id="harga-nastar">Rp 65.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('nastar', -1)">−</button>
+                <span id="jumlah-nastar">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('nastar', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk 2: Kastengel -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-cheese"></i> kastengel</span>
+            <button class="btn-detail" onclick="toggleDetail('detailKastengel')">👇</button>
+        </div>
+        <div id="detailKastengel" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('kastengel')">
+                <i class="fas fa-tag"></i> <span id="harga-kastengel">Rp 70.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('kastengel', -1)">−</button>
+                <span id="jumlah-kastengel">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('kastengel', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk 3: Putri Salju -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-snowflake"></i> putri salju</span>
+            <button class="btn-detail" onclick="toggleDetail('detailPutri')">👇</button>
+        </div>
+        <div id="detailPutri" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('putri')">
+                <i class="fas fa-tag"></i> <span id="harga-putri">Rp 68.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('putri', -1)">−</button>
+                <span id="jumlah-putri">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('putri', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk 4: Lidah Kucing -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-paw"></i> lidah kucing</span>
+            <button class="btn-detail" onclick="toggleDetail('detailLidah')">👇</button>
+        </div>
+        <div id="detailLidah" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('lidah')">
+                <i class="fas fa-tag"></i> <span id="harga-lidah">Rp 60.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('lidah', -1)">−</button>
+                <span id="jumlah-lidah">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('lidah', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk 5: Choco Chip -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-candy-cane"></i> choco chip</span>
+            <button class="btn-detail" onclick="toggleDetail('detailChoco')">👇</button>
+        </div>
+        <div id="detailChoco" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('choco')">
+                <i class="fas fa-tag"></i> <span id="harga-choco">Rp 72.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('choco', -1)">−</button>
+                <span id="jumlah-choco">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('choco', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk 6: Biji Ketapang -->
+    <div class="produk-card">
+        <div class="produk-header">
+            <span class="nama-produk"><i class="fas fa-seedling"></i> biji ketapang</span>
+            <button class="btn-detail" onclick="toggleDetail('detailBiji')">👇</button>
+        </div>
+        <div id="detailBiji" class="detail-produk hidden">
+            <div class="harga-info" onclick="toggleHarga('biji')">
+                <i class="fas fa-tag"></i> <span id="harga-biji">Rp 55.000</span>
+            </div>
+            <div class="jumlah-control">
+                <button class="btn-jumlah" onclick="ubahJumlah('biji', -1)">−</button>
+                <span id="jumlah-biji">0</span>
+                <button class="btn-jumlah" onclick="ubahJumlah('biji', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tombol Order WA -->
+    <div class="wa-order">
+        <a href="#" id="waLink" class="wa-link" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i> mau order chat niez cookies ya
+        </a>
+        <div style="margin-top: 0.8rem; color:#7b501f;">👇 klik gambar WA untuk kirim pesanan</div>
+    </div>
+
+    <div class="footer">
+        <i class="fas fa-heart" style="color:#d44c2f;"></i> Niez Cookies – special lebaran 1446 H
+    </div>
+</div>
+
+<script>
+    // ========== DATA PRODUK ==========
+    const produkList = ['nastar', 'kastengel', 'putri', 'lidah', 'choco', 'biji'];
+    const hargaDasar = {
+        nastar: 65000,
+        kastengel: 70000,
+        putri: 68000,
+        lidah: 60000,
+        choco: 72000,
+        biji: 55000
+    };
+
+    // State jumlah per produk (semua mulai dari 0)
+    let jumlahProduk = {};
+    produkList.forEach(p => jumlahProduk[p] = 0);
+
+    // Tampilkan jumlah 0 di HTML
+    window.onload = function() {
+        produkList.forEach(p => {
+            document.getElementById('jumlah-'+p).innerText = jumlahProduk[p];
+        });
+        updateWALink(); // langsung update link WA
+    };
+
+    // Fungsi toggle harga (hanya efek visual)
+    window.toggleHarga = function(produk) {
+        let spanHarga = document.getElementById('harga-'+produk);
+        spanHarga.style.transition = '0.1s';
+        spanHarga.style.color = '#b34000';
+        spanHarga.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+            spanHarga.style.color = '#8e411b';
+            spanHarga.style.transform = 'scale(1)';
+        }, 150);
+    };
+
+    // Fungsi ubah jumlah (min 0, max 100)
+    window.ubahJumlah = function(produk, delta) {
+        let baru = jumlahProduk[produk] + delta;
+        if (baru < 0) baru = 0;
+        if (baru > 100) baru = 100;
+        jumlahProduk[produk] = baru;
+        document.getElementById('jumlah-'+produk).innerText = baru;
+        updateWALink(); // update link WA setiap kali jumlah berubah
+    };
+
+    // Toggle detail produk
+    window.toggleDetail = function(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    };
+
+    // Format rupiah
+    function formatRupiah(angka) {
+        return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    // Update semua tampilan harga
+    function updateSemuaHarga() {
+        produkList.forEach(p => {
+            document.getElementById('harga-'+p).innerText = formatRupiah(hargaDasar[p]);
+        });
+    }
+    updateSemuaHarga();
+
+    // ========== GENERATE PESAN WA ==========
+    function generateWAText() {
+        // Ambil nilai dari form
+        let nama = document.getElementById('namaPembeli').value.trim();
+        let alamat = document.getElementById('alamatPembeli').value.trim();
+        let hp = document.getElementById('hpPembeli').value.trim();
+        let catatan = document.getElementById('catatanPembeli').value.trim();
+
+        // Validasi sederhana, jika kosong beri tanda
+        if (nama === '') nama = '(nama belum diisi)';
+        if (alamat === '') alamat = '(alamat belum diisi)';
+        if (hp === '') hp = '(nomor HP belum diisi)';
+        if (catatan === '') catatan = '-';
+
+        // Kumpulkan produk yang dipesan (jumlah > 0)
+        let produkDipesan = [];
+        produkList.forEach(prod => {
+            let jml = jumlahProduk[prod];
+            if (jml > 0) {
+                // Ubah kode produk jadi nama cantik
+                let namaProduk = '';
+                if (prod === 'nastar') namaProduk = 'nastar';
+                else if (prod === 'kastengel') namaProduk = 'kastengel';
+                else if (prod === 'putri') namaProduk = 'putri salju';
+                else if (prod === 'lidah') namaProduk = 'lidah kucing';
+                else if (prod === 'choco') namaProduk = 'choco chip';
+                else if (prod === 'biji') namaProduk = 'biji ketapang';
+                
+                produkDipesan.push(`${namaProduk} : ${jml} kotak`);
+            }
+        });
+
+        let produkStr = '';
+        if (produkDipesan.length === 0) {
+            produkStr = '(belum pilih produk)';
+        } else {
+            produkStr = produkDipesan.join(', ');
+        }
+
+        // Format pesan sesuai permintaan:
+        let pesan = `assalamu'alaikum ibu niez cookies saya ${nama} mau order ${produkStr} dengan jumlah tersebut.\n\n` +
+                    `nama : ${nama}\n` +
+                    `alamat: ${alamat}\n` +
+                    `nomor whatsapp: ${hp}\n` +
+                    `catatan: ${catatan}`;
+
+        return encodeURIComponent(pesan);
+    }
+
+    // Update link WA
+    function updateWALink() {
+        let waLink = document.getElementById('waLink');
+        let teks = generateWAText();
+        waLink.href = `https://wa.me/6285934953688?text=${teks}`;
+    }
+
+    // Event listener untuk form inputs
+    document.getElementById('namaPembeli').addEventListener('input', updateWALink);
+    document.getElementById('alamatPembeli').addEventListener('input', updateWALink);
+    document.getElementById('hpPembeli').addEventListener('input', updateWALink);
+    document.getElementById('catatanPembeli').addEventListener('input', updateWALink);
+</script>
+</body>
+</html>
