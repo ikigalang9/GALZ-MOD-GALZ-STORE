@@ -94,7 +94,6 @@
             color: #94a3b8;
         }
 
-        /* Tabel utama (publik) */
         .numbers-section {
             background: #0f172a80;
             border-radius: 1.8rem;
@@ -192,7 +191,6 @@
             color: #7e8aa8;
         }
 
-        /* Footer & link publik */
         .footer-links {
             margin-top: 2rem;
             text-align: center;
@@ -205,7 +203,6 @@
             margin-top: 12px;
         }
 
-        /* Tombol admin floating */
         .admin-fab {
             position: fixed;
             bottom: 24px;
@@ -230,7 +227,6 @@
             background: #eab308;
         }
 
-        /* Modal admin */
         .modal {
             display: none;
             position: fixed;
@@ -345,6 +341,14 @@
             flex-wrap: wrap;
             margin-top: 12px;
         }
+        .btn-secondary {
+            background: #334155;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 2rem;
+            color: white;
+            cursor: pointer;
+        }
         @media (max-width: 700px) {
             body { padding: 1rem; }
             .admin-item { flex-direction: column; align-items: stretch; }
@@ -365,7 +369,6 @@
         <div class="stat-item"><i class="fas fa-link"></i><div class="stat-info"><h3>⚡ OTP</h3><p>Klik tombol → buka link tujuan</p></div></div>
     </div>
 
-    <!-- Tabel publik (semua orang lihat) -->
     <div class="numbers-section">
         <table class="number-table" id="numbersTable">
             <thead><tr><th>#</th><th>Nomor (Internasional)</th><th>Negara</th><th>Aksi</th></tr></thead>
@@ -378,30 +381,23 @@
     </div>
 </div>
 
-<!-- Tombol admin floating -->
 <button id="adminFab" class="admin-fab"><i class="fas fa-lock"></i></button>
 
-<!-- Modal Admin Panel (butuh password) -->
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2><i class="fas fa-user-shield"></i> Admin Panel Nokos</h2>
             <button class="close-modal" id="closeModalBtn">&times;</button>
         </div>
-        <div id="adminPanelContent">
-            <!-- Password prompt akan tampil di sini jika belum login -->
-        </div>
+        <div id="adminPanelContent"></div>
     </div>
 </div>
 
 <script>
-    // =============== DATA MODEL ===============
     const STORAGE_KEY = 'nokos_advanced_stock';
-    // Setiap item: { number: "+992...", otpLink: "https://t.me/kami_otp_zone" }
-    let numbersList = [];        // array of objects
-    let isAdmin = false;         // status login admin
+    let numbersList = [];
+    let isAdmin = false;
 
-    // Fungsi bantu: ekstrak negara dari nomor
     function getCountryInfo(number) {
         if (!number || !number.startsWith('+')) return { flag: '🌐', code: '?' };
         const digits = number.slice(1);
@@ -442,7 +438,6 @@
         return { flag, code: shortCode };
     }
 
-    // Format nomor ke internasional (dengan +)
     function formatToInternational(raw) {
         let cleaned = raw.trim();
         if (!cleaned) return null;
@@ -457,16 +452,13 @@
         return digits.length >= 6;
     }
 
-    // Load data dari localStorage (migrasi dari format lama jika perlu)
     function loadData() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             try {
                 let parsed = JSON.parse(stored);
                 if (Array.isArray(parsed)) {
-                    // Cek apakah format lama (string) atau baru (object)
                     if (parsed.length > 0 && typeof parsed[0] === 'string') {
-                        // Migrasi: ubah ke object dengan default link @kami_otp_zone
                         const newList = parsed.map(num => ({
                             number: num,
                             otpLink: "https://t.me/kami_otp_zone"
@@ -480,7 +472,6 @@
                 }
             } catch(e) {}
         }
-        // Data default
         numbersList = [
             { number: "+992005736433", otpLink: "https://t.me/kami_otp_zone" },
             { number: "+992002356232", otpLink: "https://t.me/kaami_broken22" },
@@ -494,7 +485,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(numbersList));
     }
 
-    // Render tabel publik (tanpa kontrol admin)
     function renderPublicTable() {
         const tbody = document.getElementById('tableBody');
         const totalSpan = document.getElementById('totalStok');
@@ -574,12 +564,10 @@
         const number = this.getAttribute('data-number');
         if (!link) return;
         let finalUrl = link;
-        // Jika link adalah Telegram (t.me/username) maka tambahkan ?text=nomor
         if (link.includes('t.me/') && !link.includes('?text=')) {
             const message = `Halo, saya minta kode OTP untuk nomor: ${number}`;
             finalUrl = link + `?text=${encodeURIComponent(message)}`;
         }
-        // Jika link WhatsApp personal (wa.me) juga bisa
         if (link.includes('wa.me/') && !link.includes('?text=')) {
             finalUrl = link + `?text=${encodeURIComponent(`OTP untuk ${number}`)}`;
         }
@@ -589,11 +577,56 @@
         setTimeout(() => { this.innerHTML = original; }, 1000);
     }
 
-    // =============== ADMIN PANEL (dengan password) ===============
+    // Backup & Restore functions
+    function backupData() {
+        const dataStr = JSON.stringify(numbersList, null, 2);
+        const blob = new Blob([dataStr], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nokos_backup_${new Date().toISOString().slice(0,19)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function restoreData(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                if (Array.isArray(imported) && imported.length >= 0) {
+                    // validasi sederhana: setiap item harus punya number dan otpLink
+                    let valid = true;
+                    for (let item of imported) {
+                        if (!item.number || typeof item.otpLink === 'undefined') {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if (valid) {
+                        numbersList = imported;
+                        saveData();
+                        renderPublicTable();
+                        if (isAdmin) renderAdminPanel(); // refresh panel admin jika sedang login
+                        alert(`Berhasil restore ${numbersList.length} nomor.`);
+                    } else {
+                        alert('File tidak valid: format data salah.');
+                    }
+                } else {
+                    alert('File tidak valid: bukan array.');
+                }
+            } catch(err) {
+                alert('Gagal membaca file: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
     function renderAdminPanel() {
         const container = document.getElementById('adminPanelContent');
         if (!isAdmin) {
-            // Tampilkan form password
             container.innerHTML = `
                 <div style="text-align:center; padding:1rem;">
                     <i class="fas fa-lock" style="font-size:3rem; color:#facc15;"></i>
@@ -607,7 +640,6 @@
                 if (pwd === 'GALZMODX') {
                     isAdmin = true;
                     renderAdminPanel();
-                    renderPublicTable();   // refresh tidak perlu, tapi tetap
                 } else {
                     alert('Password salah!');
                 }
@@ -615,7 +647,6 @@
             return;
         }
 
-        // Sudah login -> tampilkan manajemen stok
         container.innerHTML = `
             <div style="margin-bottom:1rem;">
                 <h3><i class="fas fa-plus-circle"></i> Tambah Nomor Baru</h3>
@@ -644,13 +675,22 @@
                 <button id="clearAllStockBtn" class="btn-danger" style="margin-left:12px;">Hapus SEMUA Stok</button>
             </div>
             <hr>
+            <div>
+                <h3><i class="fas fa-archive"></i> Backup & Restore Data</h3>
+                <div class="flex-btns">
+                    <button id="backupBtn" class="btn-secondary"><i class="fas fa-download"></i> Backup (Download JSON)</button>
+                    <label for="restoreFileInput" class="btn-secondary" style="display:inline-block; padding:8px 16px; border-radius:2rem; cursor:pointer;"><i class="fas fa-upload"></i> Restore (Upload file)</label>
+                    <input type="file" id="restoreFileInput" accept=".json" style="display:none;">
+                </div>
+                <div class="note-tips" style="margin-top:8px;">Gunakan fitur ini untuk memindahkan stok antar perangkat. Backup dari HP yang sudah diisi, lalu Restore di HP lain.</div>
+            </div>
+            <hr>
             <div class="admin-list">
                 <h3><i class="fas fa-edit"></i> Edit / Hapus Nomor & Link</h3>
                 <div id="adminItemsList"></div>
             </div>
         `;
 
-        // Render daftar nomor dengan edit link & hapus
         renderAdminItemsList();
 
         document.getElementById('addSingleAdmin')?.addEventListener('click', () => {
@@ -660,7 +700,6 @@
             let formatted = formatToInternational(rawNum);
             if (!isValidNumber(formatted)) return alert('Nomor tidak valid (minimal 6 digit)');
             if (!link) link = "https://t.me/kami_otp_zone";
-            // cek duplikat
             if (numbersList.some(item => item.number === formatted)) return alert('Nomor sudah ada');
             numbersList.push({ number: formatted, otpLink: link });
             saveData();
@@ -697,6 +736,15 @@
                 renderAdminItemsList();
             }
         });
+
+        document.getElementById('backupBtn')?.addEventListener('click', () => backupData());
+        const fileInput = document.getElementById('restoreFileInput');
+        fileInput?.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                restoreData(e.target.files[0]);
+                fileInput.value = '';
+            }
+        });
     }
 
     function renderAdminItemsList() {
@@ -718,7 +766,6 @@
             `;
         });
         container.innerHTML = html;
-        // Event simpan link
         document.querySelectorAll('.save-link-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = parseInt(btn.getAttribute('data-index'));
@@ -727,7 +774,7 @@
                     numbersList[idx].otpLink = newLink;
                     saveData();
                     renderPublicTable();
-                    renderAdminItemsList();  // refresh
+                    renderAdminItemsList();
                 } else {
                     alert('Link tidak boleh kosong');
                 }
@@ -746,14 +793,13 @@
         });
     }
 
-    // Modal management
     const modal = document.getElementById('adminModal');
     const fab = document.getElementById('adminFab');
     const closeModalBtn = document.getElementById('closeModalBtn');
 
     fab.addEventListener('click', () => {
         modal.classList.add('active');
-        renderAdminPanel();  // setiap buka modal, render ulang (cek status login)
+        renderAdminPanel();
     });
     closeModalBtn.addEventListener('click', () => {
         modal.classList.remove('active');
@@ -762,11 +808,9 @@
         if (e.target === modal) modal.classList.remove('active');
     });
 
-    // Inisialisasi
     loadData();
     renderPublicTable();
 
-    // Sinkronisasi antar tab
     window.addEventListener('storage', (e) => {
         if (e.key === STORAGE_KEY) {
             loadData();
