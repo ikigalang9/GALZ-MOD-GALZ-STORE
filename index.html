@@ -2,823 +2,191 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Stok Nokos · Pemasok OTP (Backup & Restore)</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GALZMODX - Official Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        * {
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
         }
-        body {
-            background: linear-gradient(145deg, #0a0f1e 0%, #0c1222 100%);
-            min-height: 100vh;
-            padding: 2rem 1.5rem;
-            color: #eef2ff;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .glass-card:active {
+            transform: scale(0.95);
+            border-color: #22c55e;
         }
-        .hero {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .hero h1 {
-            font-size: 2.2rem;
+        .btn-order {
+            background: linear-gradient(135deg, #a855f7 0%, #22c55e 100%);
+            color: black;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFD966, #FFB347);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .hero p {
-            color: #9ca3cf;
-            margin-top: 0.5rem;
-        }
-        .badge-supplier {
-            background: rgba(255, 193, 7, 0.12);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 60px;
-            font-size: 0.8rem;
-            margin-top: 0.8rem;
-            color: #facc15;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(8px);
-            border-radius: 2rem;
-            padding: 1rem 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(71, 85, 105, 0.5);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .stat-item i {
-            font-size: 1.6rem;
-            color: #facc15;
-        }
-        .stat-info h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-        .stat-info p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-        .numbers-section {
-            background: #0f172a80;
-            border-radius: 1.8rem;
-            overflow-x: auto;
-            backdrop-filter: blur(4px);
-            border: 1px solid #2d3a5e;
-            padding: 0.2rem;
-        }
-        .number-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-        .number-table th {
-            text-align: left;
-            padding: 1rem 0.8rem;
-            background: #0a0f1c;
-            color: #cbd5e1;
-            font-weight: 600;
-            border-bottom: 1px solid #2d3a5e;
-        }
-        .number-table td {
-            padding: 0.9rem 0.8rem;
-            border-bottom: 1px solid #1e2a3e;
-            vertical-align: middle;
-        }
-        .number-table tr:hover {
-            background: #1e293b50;
-        }
-        .phone-number {
-            font-family: 'Monaco', monospace;
-            font-weight: 600;
-            color: #facc15;
-            font-size: 0.9rem;
-        }
-        .country-flag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #1e293b;
-            padding: 4px 10px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-        .action-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .btn-copy, .btn-otp {
-            background: none;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 32px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-        .btn-copy {
-            background: #1e293b;
-            color: #cbd5e6;
-            border: 1px solid #475569;
-        }
-        .btn-copy:hover {
-            background: #334155;
-        }
-        .btn-otp {
-            background: #1e3a5f;
-            color: #90e0ff;
-            border: 1px solid #2c5f8a;
-        }
-        .btn-otp:hover {
-            filter: brightness(1.1);
-            transform: translateY(-1px);
-        }
-        .empty-row td {
-            text-align: center;
-            padding: 2.5rem;
-            color: #7e8aa8;
-        }
-        .footer-links {
-            margin-top: 2rem;
-            text-align: center;
-            padding: 1rem;
-            border-top: 1px solid #1e2a3e;
-        }
-        .note-tips {
-            font-size: 0.7rem;
-            color: #7e8aa8;
-            margin-top: 12px;
-        }
-        .admin-fab {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #facc15;
-            width: 56px;
-            height: 56px;
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            z-index: 1000;
-            transition: 0.2s;
-            border: none;
-            color: #0f172a;
-            font-size: 1.6rem;
-        }
-        .admin-fab:hover {
-            transform: scale(1.05);
-            background: #eab308;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-            z-index: 1100;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: #0f172a;
-            max-width: 900px;
-            width: 90%;
-            max-height: 85vh;
-            border-radius: 2rem;
-            border: 1px solid #facc15;
-            overflow-y: auto;
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.25rem;
-        }
-        .modal-header h2 {
-            color: #facc15;
-            font-size: 1.5rem;
-        }
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #94a3b8;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
             text-transform: uppercase;
-            margin-bottom: 5px;
-            color: #9ca3af;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background: #1e293b;
-            border: 1px solid #475569;
-            padding: 10px 14px;
-            border-radius: 1rem;
-            color: white;
-        }
-        .admin-list {
-            margin-top: 1.5rem;
-            border-top: 1px solid #334155;
-            padding-top: 1rem;
-        }
-        .admin-item {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            background: #1e293b;
-            margin-bottom: 12px;
-            padding: 10px;
-            border-radius: 1.2rem;
-        }
-        .admin-item .number {
-            flex: 2;
-            font-family: monospace;
-            font-weight: bold;
-            color: #facc15;
-        }
-        .admin-item .link-input {
-            flex: 3;
-            background: #0f172a;
-            border: 1px solid #475569;
-            padding: 6px 10px;
-            border-radius: 2rem;
-            color: white;
-            font-size: 0.8rem;
-        }
-        .admin-item button {
-            background: #2c3e66;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 2rem;
-            color: white;
+            letter-spacing: 1px;
+            transition: all 0.2s;
             cursor: pointer;
         }
-        .btn-danger-sm {
-            background: #7f1a1a !important;
+        .btn-order:hover {
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
         }
-        hr {
-            border-color: #2d3a5e;
-            margin: 1rem 0;
-        }
-        .flex-btns {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .btn-secondary {
-            background: #334155;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 2rem;
-            color: white;
-            cursor: pointer;
-        }
-        @media (max-width: 700px) {
-            body { padding: 1rem; }
-            .admin-item { flex-direction: column; align-items: stretch; }
+        .free-card {
+            border: 1px dashed rgba(34, 197, 94, 0.5);
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="hero">
-        <h1><i class="fas fa-boxes"></i> STOK NOKOS</h1>
-        <p>Pemasok resmi · nomor berbagai negara · OTP via link khusus per nomor</p>
-        <div class="badge-supplier"><i class="fas fa-database"></i> LOKAL STORAGE · BACKUP & RESTORE</div>
-    </div>
+<body class="pb-20">
 
-    <div class="stats">
-        <div class="stat-item"><i class="fas fa-database"></i><div class="stat-info"><h3 id="totalStok">0</h3><p>Total Nomor</p></div></div>
-        <div class="stat-item"><i class="fas fa-flag-checkered"></i><div class="stat-info"><h3 id="negaraCount">0</h3><p>Negara</p></div></div>
-        <div class="stat-item"><i class="fas fa-link"></i><div class="stat-info"><h3>⚡ OTP</h3><p>Klik tombol → buka link tujuan</p></div></div>
-    </div>
-
-    <div class="numbers-section">
-        <table class="number-table" id="numbersTable">
-            <thead><tr><th>#</th><th>Nomor (Internasional)</th><th>Negara</th><th>Aksi</th></tr></thead>
-            <tbody id="tableBody"><tr class="empty-row"><td colspan="4">Memuat stok nomor...<div class="loading"><i class="fas fa-spinner fa-pulse"></i> </div></td></tr></tbody>
-        </table>
-    </div>
-
-    <div class="footer-links">
-        <div class="note-tips">📌 Setiap nomor memiliki tautan OTP tersendiri (diatur oleh pemasok). Klik tombol "Minta OTP" untuk mengirim permintaan ke channel/grup yang sudah ditentukan.</div>
-    </div>
-</div>
-
-<button id="adminFab" class="admin-fab"><i class="fas fa-lock"></i></button>
-
-<div id="adminModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2><i class="fas fa-user-shield"></i> Admin Panel Nokos</h2>
-            <button class="close-modal" id="closeModalBtn">&times;</button>
+    <!-- Header / Banner Area -->
+    <div class="max-w-xl mx-auto px-4 pt-6">
+        <div class="rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)] mb-8 border border-purple-500/30">
+            <img src="b1c41db7-9902-4fa5-90e1-0f2df8cad74b.png" alt="GALZMODX Logo" class="w-full h-auto" onerror="this.src='https://placehold.co/600x400/000/a855f7?text=GALZMODX'">
         </div>
-        <div id="adminPanelContent"></div>
+
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black mb-1 text-white tracking-tight">GALZMODX</h1>
+            <p class="text-lg font-bold text-green-500 tracking-widest uppercase">GALZ IS GOOD</p>
+        </div>
+
+        <!-- JUAL SECTION -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-extrabold text-purple-400 mb-4 flex items-center">
+                <span class="mr-2 px-2 py-0.5 bg-purple-600 text-black rounded text-sm uppercase italic">JUAL</span>
+                APK & SERVICE
+            </h2>
+
+            <!-- Item: APK BUG SEMUA ADA -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK BUG SEMUA ADA</h3>
+                <p class="text-xs text-gray-400 mb-4">Akses lengkap semua fitur bugging premium.</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER APK BUG DONG (NAMA APK BUG)')" class="btn-order w-full py-3 rounded-xl shadow-lg">ORDER SEKARANG</button>
+            </div>
+
+            <!-- Item: MURBUG -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURBUG</h3>
+                <p class="text-xs text-gray-400 mb-4">APK SIAP UPDATE (Paling Stabil)</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBUG')" class="btn-order w-full py-3 rounded-xl">BELI MURBUG</button>
+            </div>
+
+            <!-- Item: MURBAND -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURBAND</h3>
+                <p class="text-xs text-gray-400 mb-4">MT FRESH + APK BAND</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURBAND</button>
+            </div>
+
+            <!-- Item: MURUNBAND -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">MURUNBAND</h3>
+                <p class="text-xs text-gray-400 mb-4">TEXT KEDIP + APK UNBAND</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER MURUNBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURUNBAND</button>
+            </div>
+
+            <!-- Item: APK SURXRAT -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK SURXRAT</h3>
+                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK SURXRAT</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER APK SURXRAT')" class="btn-order w-full py-3 rounded-xl">BELI SURXRAT</button>
+            </div>
+
+            <!-- Item: APK AJMXRAT -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1">APK AJMXRAT</h3>
+                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK AJMXRAT</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER AJMXRAT')" class="btn-order w-full py-3 rounded-xl">BELI AJMXRAT</button>
+            </div>
+
+            <!-- Item: JASA UNBAND PERMANEN -->
+            <div class="glass-card p-5">
+                <h3 class="text-lg font-bold text-white mb-1 uppercase">Jasa Unband Permanen</h3>
+                <p class="text-xs text-gray-400 mb-4">Proses cepat, garansi tembus.</p>
+                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER UNBAND PERMANEN TAPI BERAPA BANG?')" class="btn-order w-full py-3 rounded-xl">ORDER 5K-15K</button>
+            </div>
+
+            <!-- Item: WEB BUG GACOR -->
+            <div class="glass-card p-5 border-green-500/50">
+                <h3 class="text-lg font-bold text-green-400 mb-1">WEB BUG GACOR</h3>
+                <p class="text-xs text-gray-400 mb-4">TEMBUS BLOKIR ALL HANDPHONE</p>
+                <button onclick="kirimPesan('BANG ORDER TF KEMANA')" class="btn-order w-full py-3 rounded-xl">AMBIL WEB</button>
+            </div>
+        </div>
+
+        <!-- FREE SECTION -->
+        <div class="mt-12 space-y-4">
+            <h2 class="text-xl font-extrabold text-green-500 mb-4 flex items-center">
+                <span class="mr-2 px-2 py-0.5 bg-green-500 text-black rounded text-sm uppercase italic">FREE</span>
+                GIVEAWAY
+            </h2>
+
+            <div class="grid grid-cols-1 gap-3">
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Unband Spam Kedip</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Bug (Sender No Sendiri)</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+                <div class="glass-card free-card p-4 flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-bold text-white uppercase">Nokos All Negara</p>
+                    </div>
+                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 text-center">
+            <p class="text-2xl font-black italic text-white mb-6 uppercase tracking-tighter">GAS ORDER</p>
+            <a href="#" onclick="bukaTelegramDenganPesan('ASSALAMUALAIKUM BANG ADA APA AJA')" class="inline-block bg-[#229ED9] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-sky-500 transition-colors">
+                HUBUNGI ADMIN LANGSUNG
+            </a>
+        </div>
     </div>
-</div>
 
-<script>
-    // ======================= DATA STORAGE (LOCALSTORAGE) =======================
-    const STORAGE_KEY = 'nokos_supplier_stock_final';
-    // Fallback key dari versi sebelumnya (untuk migrasi otomatis)
-    const OLD_KEYS = ['nokos_advanced_stock', 'nokos_supplier_stock_global', 'nokos_supplier_stock'];
+    <script>
+        // Username Telegram yang dituju
+        const TELEGRAM_USERNAME = "GALZMODXZ";
 
-    let numbersList = [];        // array of { number, otpLink }
-    let isAdmin = false;
-
-    // Fungsi untuk migrasi data dari localStorage versi lama
-    function migrateFromOldVersions() {
-        for (let oldKey of OLD_KEYS) {
-            const oldData = localStorage.getItem(oldKey);
-            if (oldData) {
-                try {
-                    let parsed = JSON.parse(oldData);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        // Cek format: apakah array of string atau array of object
-                        if (typeof parsed[0] === 'string') {
-                            // format lama (hanya nomor) -> konversi ke object dengan default link
-                            return parsed.map(num => ({
-                                number: num,
-                                otpLink: "https://t.me/kami_otp_zone"
-                            }));
-                        } else if (parsed[0] && typeof parsed[0] === 'object' && parsed[0].number) {
-                            // format object lengkap
-                            return parsed;
-                        }
-                    }
-                } catch(e) {}
-            }
-        }
-        return null;
-    }
-
-    function loadData() {
-        // Coba ambil dari storage key baru
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-            try {
-                let parsed = JSON.parse(stored);
-                if (Array.isArray(parsed)) {
-                    numbersList = parsed;
-                    return;
-                }
-            } catch(e) {}
-        }
-        // Jika tidak ada, coba migrasi dari versi lama
-        const migrated = migrateFromOldVersions();
-        if (migrated) {
-            numbersList = migrated;
-            saveData(); // simpan ke format baru
-            return;
-        }
-        // Data default jika benar-benar kosong
-        numbersList = [
-            { number: "+628123456789", otpLink: "https://t.me/kami_otp_zone" },
-            { number: "+6285778899001", otpLink: "https://t.me/kaami_broken22" }
-        ];
-        saveData();
-    }
-
-    function saveData() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(numbersList));
-    }
-
-    // Helper: flag & negara
-    function getCountryInfo(number) {
-        if (!number || !number.startsWith('+')) return { flag: '🌐', code: '?' };
-        const digits = number.slice(1);
-        let prefix = '';
-        if (digits.startsWith('1')) prefix = '1';
-        else if (digits.startsWith('62')) prefix = '62';
-        else if (digits.startsWith('992')) prefix = '992';
-        else if (digits.startsWith('44')) prefix = '44';
-        else if (digits.startsWith('91')) prefix = '91';
-        else if (digits.startsWith('81')) prefix = '81';
-        else if (digits.startsWith('86')) prefix = '86';
-        else if (digits.startsWith('55')) prefix = '55';
-        else if (digits.startsWith('52')) prefix = '52';
-        else if (digits.startsWith('33')) prefix = '33';
-        else if (digits.startsWith('49')) prefix = '49';
-        else if (digits.startsWith('7')) prefix = '7';
-        else if (digits.startsWith('20')) prefix = '20';
-        else if (digits.startsWith('66')) prefix = '66';
-        else if (digits.startsWith('84')) prefix = '84';
-        else if (digits.startsWith('63')) prefix = '63';
-        else if (digits.startsWith('60')) prefix = '60';
-        else if (digits.startsWith('34')) prefix = '34';
-        else if (digits.startsWith('39')) prefix = '39';
-        else if (digits.startsWith('82')) prefix = '82';
-        else prefix = digits.substring(0, 3);
-        
-        const flagMap = {
-            '1': '🇺🇸', '62': '🇮🇩', '992': '🇹🇯', '44': '🇬🇧', '91': '🇮🇳', '81': '🇯🇵',
-            '86': '🇨🇳', '55': '🇧🇷', '52': '🇲🇽', '33': '🇫🇷', '49': '🇩🇪', '7': '🇷🇺',
-            '20': '🇪🇬', '66': '🇹🇭', '84': '🇻🇳', '63': '🇵🇭', '60': '🇲🇾', '34': '🇪🇸',
-            '39': '🇮🇹', '82': '🇰🇷'
-        };
-        let flag = flagMap[prefix] || '🌍';
-        let shortCode = prefix;
-        if (prefix === '992') shortCode = '992 (TJ)';
-        else if (prefix === '62') shortCode = '62 (ID)';
-        else shortCode = `+${prefix}`;
-        return { flag, code: shortCode };
-    }
-
-    function formatToInternational(raw) {
-        let cleaned = raw.trim();
-        if (!cleaned) return null;
-        if (cleaned.startsWith('+')) return cleaned;
-        if (cleaned.startsWith('00')) return '+' + cleaned.slice(2);
-        if (/^\d+$/.test(cleaned)) return '+' + cleaned;
-        return cleaned;
-    }
-    function isValidNumber(formatted) {
-        if (!formatted || !formatted.startsWith('+')) return false;
-        const digits = formatted.replace(/\D/g, '');
-        return digits.length >= 6;
-    }
-
-    function renderPublicTable() {
-        const tbody = document.getElementById('tableBody');
-        const totalSpan = document.getElementById('totalStok');
-        const negaraSpan = document.getElementById('negaraCount');
-        if (!tbody) return;
-        if (numbersList.length === 0) {
-            tbody.innerHTML = `<tr class="empty-row"><td colspan="4">📭 Stok kosong. Tambah nomor lewat panel admin.</td></tr>`;
-            totalSpan.innerText = '0';
-            negaraSpan.innerText = '0';
-            return;
-        }
-        totalSpan.innerText = numbersList.length;
-        const uniqueCountries = new Set();
-        numbersList.forEach(item => {
-            const info = getCountryInfo(item.number);
-            uniqueCountries.add(info.code);
-        });
-        negaraSpan.innerText = uniqueCountries.size;
-
-        let html = '';
-        numbersList.forEach((item, idx) => {
-            const safeNumber = escapeHtml(item.number);
-            const countryInfo = getCountryInfo(item.number);
-            const rowNum = idx + 1;
-            html += `
-                <tr>
-                    <td style="color:#94a3b8;">${rowNum}</td>
-                    <td class="phone-number"><i class="fas fa-sim-card"></i> ${safeNumber}</td>
-                    <td><span class="country-flag">${countryInfo.flag} ${countryInfo.code}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="btn-copy" data-number="${safeNumber}"><i class="fas fa-copy"></i> Salin</button>
-                            <button class="btn-otp" data-link="${escapeHtml(item.otpLink)}" data-number="${safeNumber}"><i class="fas fa-paper-plane"></i> Minta OTP</button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        });
-        tbody.innerHTML = html;
-        attachCopyEvents();
-        attachOtpEvents();
-    }
-
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function attachCopyEvents() {
-        document.querySelectorAll('.btn-copy').forEach(btn => {
-            btn.removeEventListener('click', copyHandler);
-            btn.addEventListener('click', copyHandler);
-        });
-    }
-    function copyHandler(e) {
-        const number = this.getAttribute('data-number');
-        if (!number) return;
-        navigator.clipboard.writeText(number).then(() => {
-            const orig = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-            setTimeout(() => { this.innerHTML = orig; }, 1200);
-        }).catch(() => alert('Gagal salin'));
-    }
-
-    function attachOtpEvents() {
-        document.querySelectorAll('.btn-otp').forEach(btn => {
-            btn.removeEventListener('click', otpHandler);
-            btn.addEventListener('click', otpHandler);
-        });
-    }
-    function otpHandler(e) {
-        const link = this.getAttribute('data-link');
-        const number = this.getAttribute('data-number');
-        if (!link) return;
-        let finalUrl = link;
-        if (link.includes('t.me/') && !link.includes('?text=')) {
-            const message = `Halo, saya minta kode OTP untuk nomor: ${number}`;
-            finalUrl = link + `?text=${encodeURIComponent(message)}`;
-        }
-        if (link.includes('wa.me/') && !link.includes('?text=')) {
-            finalUrl = link + `?text=${encodeURIComponent(`OTP untuk ${number}`)}`;
-        }
-        window.open(finalUrl, '_blank');
-        const original = this.innerHTML;
-        this.innerHTML = '<i class="fas fa-check"></i> Buka link';
-        setTimeout(() => { this.innerHTML = original; }, 1000);
-    }
-
-    // =============== ADMIN PANEL ===============
-    function backupData() {
-        const dataStr = JSON.stringify(numbersList, null, 2);
-        const blob = new Blob([dataStr], {type: "application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `nokos_backup_${new Date().toISOString().slice(0,19)}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        alert("Backup berhasil disimpan. Gunakan file ini untuk restore di perangkat lain.");
-    }
-
-    function restoreData(file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const imported = JSON.parse(e.target.result);
-                if (Array.isArray(imported) && imported.length >= 0) {
-                    let valid = true;
-                    for (let item of imported) {
-                        if (!item.number || typeof item.otpLink === 'undefined') {
-                            valid = false;
-                            break;
-                        }
-                    }
-                    if (valid) {
-                        numbersList = imported;
-                        saveData();
-                        renderPublicTable();
-                        if (isAdmin) renderAdminPanel();
-                        alert(`Berhasil restore ${numbersList.length} nomor.`);
-                    } else {
-                        alert('File tidak valid: format data salah. Pastikan file backup dari web ini.');
-                    }
-                } else {
-                    alert('File tidak valid: bukan array.');
-                }
-            } catch(err) {
-                alert('Gagal membaca file: ' + err.message);
-            }
-        };
-        reader.readAsText(file);
-    }
-
-    function renderAdminPanel() {
-        const container = document.getElementById('adminPanelContent');
-        if (!isAdmin) {
-            container.innerHTML = `
-                <div style="text-align:center; padding:1rem;">
-                    <i class="fas fa-lock" style="font-size:3rem; color:#facc15;"></i>
-                    <h3 style="margin:1rem 0;">Akses Admin</h3>
-                    <input type="password" id="adminPassword" placeholder="Masukkan password" style="background:#1e293b; border:1px solid #facc15; padding:10px; border-radius:2rem; width:80%; color:white;">
-                    <button id="submitPasswordBtn" class="btn-primary" style="margin-top:1rem;">Login</button>
-                </div>
-            `;
-            document.getElementById('submitPasswordBtn')?.addEventListener('click', () => {
-                const pwd = document.getElementById('adminPassword').value;
-                if (pwd === 'GALZMODX') {
-                    isAdmin = true;
-                    renderAdminPanel();
-                } else {
-                    alert('Password salah!');
-                }
-            });
-            return;
+        // Fungsi untuk membuka chat Telegram dengan pesan (deep link tg://)
+        function kirimPesan(teks) {
+            const encodedText = encodeURIComponent(teks);
+            // Deep link Telegram: tg://resolve?domain=username&text=pesan
+            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
+            // Fallback ke web jika deep link tidak berhasil
+            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
+            
+            // Coba buka deep link
+            window.location.href = tgDeepLink;
+            
+            // Jika dalam 500ms halaman masih di sini (deep link gagal), maka fallback ke web
+            setTimeout(() => {
+                window.location.href = webFallback;
+            }, 500);
         }
 
-        container.innerHTML = `
-            <div style="margin-bottom:1rem;">
-                <h3><i class="fas fa-plus-circle"></i> Tambah Nomor Baru</h3>
-                <div class="form-group">
-                    <label>Nomor (contoh: +628123456789)</label>
-                    <input type="text" id="newNumberAdmin" placeholder="+628123456789 atau 628123456789">
-                </div>
-                <div class="form-group">
-                    <label>Link OTP (URL / username Telegram / WA Channel)</label>
-                    <input type="text" id="newLinkAdmin" placeholder="https://t.me/kami_otp_zone atau https://whatsapp.com/channel/...">
-                </div>
-                <button id="addSingleAdmin" class="btn-primary">Tambah 1 Nomor</button>
-            </div>
-            <hr>
-            <div>
-                <h3><i class="fas fa-layer-group"></i> Bulk Import (banyak nomor)</h3>
-                <div class="form-group">
-                    <label>Default Link untuk semua nomor baru</label>
-                    <input type="text" id="defaultBulkLink" value="https://t.me/kami_otp_zone">
-                </div>
-                <div class="form-group">
-                    <label>Daftar nomor (satu per baris)</label>
-                    <textarea id="bulkNumbersArea" rows="4" placeholder="992005736433&#10;992002356232&#10;+628123456789"></textarea>
-                </div>
-                <button id="bulkAddAdmin" class="btn-primary">Import dengan link default</button>
-                <button id="clearAllStockBtn" class="btn-danger" style="margin-left:12px;">Hapus SEMUA Stok</button>
-            </div>
-            <hr>
-            <div>
-                <h3><i class="fas fa-archive"></i> Backup & Restore Data (Pindah antar HP)</h3>
-                <div class="flex-btns">
-                    <button id="backupBtn" class="btn-secondary"><i class="fas fa-download"></i> Backup (Download JSON)</button>
-                    <label for="restoreFileInput" class="btn-secondary" style="display:inline-block; padding:8px 16px; border-radius:2rem; cursor:pointer;"><i class="fas fa-upload"></i> Restore (Upload file)</label>
-                    <input type="file" id="restoreFileInput" accept=".json" style="display:none;">
-                </div>
-                <div class="note-tips" style="margin-top:8px;">💡 Gunakan fitur ini untuk memindahkan stok ke HP lain: Backup dari HP yang sudah diisi, lalu Restore di HP target.</div>
-            </div>
-            <hr>
-            <div class="admin-list">
-                <h3><i class="fas fa-edit"></i> Edit / Hapus Nomor & Link</h3>
-                <div id="adminItemsList"></div>
-            </div>
-        `;
-
-        renderAdminItemsList();
-
-        document.getElementById('addSingleAdmin')?.addEventListener('click', () => {
-            const rawNum = document.getElementById('newNumberAdmin').value.trim();
-            let link = document.getElementById('newLinkAdmin').value.trim();
-            if (!rawNum) return alert('Masukkan nomor');
-            let formatted = formatToInternational(rawNum);
-            if (!isValidNumber(formatted)) return alert('Nomor tidak valid (minimal 6 digit)');
-            if (!link) link = "https://t.me/kami_otp_zone";
-            if (numbersList.some(item => item.number === formatted)) return alert('Nomor sudah ada');
-            numbersList.push({ number: formatted, otpLink: link });
-            saveData();
-            renderPublicTable();
-            renderAdminItemsList();
-            document.getElementById('newNumberAdmin').value = '';
-            document.getElementById('newLinkAdmin').value = '';
-        });
-
-        document.getElementById('bulkAddAdmin')?.addEventListener('click', () => {
-            const defaultLink = document.getElementById('defaultBulkLink').value.trim() || "https://t.me/kami_otp_zone";
-            const text = document.getElementById('bulkNumbersArea').value;
-            const lines = text.split(/\r?\n/);
-            let added = 0, invalid = 0, dup = 0;
-            let newNumbers = [...numbersList];
-            for (let line of lines) {
-                let raw = line.trim();
-                if (!raw) continue;
-                let formatted = formatToInternational(raw);
-                if (!isValidNumber(formatted)) { invalid++; continue; }
-                if (newNumbers.some(item => item.number === formatted)) { dup++; continue; }
-                newNumbers.push({ number: formatted, otpLink: defaultLink });
-                added++;
-            }
-            if (added > 0) {
-                numbersList = newNumbers;
-                saveData();
-                renderPublicTable();
-                renderAdminItemsList();
-            }
-            alert(`Ditambahkan: ${added}\nInvalid: ${invalid}\nDuplikat: ${dup}`);
-            document.getElementById('bulkNumbersArea').value = '';
-        });
-
-        document.getElementById('clearAllStockBtn')?.addEventListener('click', () => {
-            if (confirm('⚠️ HAPUS SEMUA NOMOR? Tindakan ini permanen.')) {
-                numbersList = [];
-                saveData();
-                renderPublicTable();
-                renderAdminItemsList();
-            }
-        });
-
-        document.getElementById('backupBtn')?.addEventListener('click', () => backupData());
-        const fileInput = document.getElementById('restoreFileInput');
-        fileInput?.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                restoreData(e.target.files[0]);
-                fileInput.value = '';
-            }
-        });
-    }
-
-    function renderAdminItemsList() {
-        const container = document.getElementById('adminItemsList');
-        if (!container) return;
-        if (numbersList.length === 0) {
-            container.innerHTML = '<p style="color:#94a3b8;">Belum ada nomor.</p>';
-            return;
+        // Fungsi khusus untuk tombol "HUBUNGI ADMIN LANGSUNG" dengan pesan tertentu
+        function bukaTelegramDenganPesan(pesan) {
+            const encodedText = encodeURIComponent(pesan);
+            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
+            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
+            window.location.href = tgDeepLink;
+            setTimeout(() => {
+                window.location.href = webFallback;
+            }, 500);
         }
-        let html = '';
-        numbersList.forEach((item, idx) => {
-            html += `
-                <div class="admin-item">
-                    <div class="number">${escapeHtml(item.number)}</div>
-                    <input type="text" class="link-input" id="link_${idx}" value="${escapeHtml(item.otpLink)}" placeholder="Link OTP">
-                    <button class="save-link-btn" data-index="${idx}">Simpan Link</button>
-                    <button class="delete-item-btn btn-danger-sm" data-index="${idx}">Hapus</button>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-        document.querySelectorAll('.save-link-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.getAttribute('data-index'));
-                const newLink = document.getElementById(`link_${idx}`).value.trim();
-                if (newLink) {
-                    numbersList[idx].otpLink = newLink;
-                    saveData();
-                    renderPublicTable();
-                    renderAdminItemsList();
-                } else {
-                    alert('Link tidak boleh kosong');
-                }
-            });
-        });
-        document.querySelectorAll('.delete-item-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.getAttribute('data-index'));
-                if (confirm(`Hapus nomor ${numbersList[idx].number} ?`)) {
-                    numbersList.splice(idx, 1);
-                    saveData();
-                    renderPublicTable();
-                    renderAdminItemsList();
-                }
-            });
-        });
-    }
-
-    // Modal
-    const modal = document.getElementById('adminModal');
-    const fab = document.getElementById('adminFab');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    fab.addEventListener('click', () => {
-        modal.classList.add('active');
-        renderAdminPanel();
-    });
-    closeModalBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.remove('active');
-    });
-
-    // Inisialisasi
-    loadData();
-    renderPublicTable();
-</script>
+    </script>
 </body>
 </html>
