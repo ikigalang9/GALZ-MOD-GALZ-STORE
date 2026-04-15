@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Stok Nokos Cloud · Sinkron Semua Perangkat</title>
-    <!-- Font Awesome 6 -->
+    <title>Stok Nokos · Pemasok OTP (Backup & Restore)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,24 +12,20 @@
             box-sizing: border-box;
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
         }
-
         body {
             background: linear-gradient(145deg, #0a0f1e 0%, #0c1222 100%);
             min-height: 100vh;
             padding: 2rem 1.5rem;
             color: #eef2ff;
         }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .hero {
             text-align: center;
             margin-bottom: 2rem;
         }
-
         .hero h1 {
             font-size: 2.2rem;
             font-weight: 800;
@@ -42,12 +37,10 @@
             align-items: center;
             gap: 12px;
         }
-
         .hero p {
             color: #9ca3cf;
             margin-top: 0.5rem;
         }
-
         .badge-supplier {
             background: rgba(255, 193, 7, 0.12);
             backdrop-filter: blur(4px);
@@ -59,7 +52,6 @@
             margin-top: 0.8rem;
             color: #facc15;
         }
-
         .stats {
             display: flex;
             justify-content: space-between;
@@ -72,28 +64,23 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
         .stat-item {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .stat-item i {
             font-size: 1.6rem;
             color: #facc15;
         }
-
         .stat-info h3 {
             font-size: 1.6rem;
             font-weight: 700;
         }
-
         .stat-info p {
             font-size: 0.8rem;
             color: #94a3b8;
         }
-
         .numbers-section {
             background: #0f172a80;
             border-radius: 1.8rem;
@@ -102,13 +89,11 @@
             border: 1px solid #2d3a5e;
             padding: 0.2rem;
         }
-
         .number-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
         }
-
         .number-table th {
             text-align: left;
             padding: 1rem 0.8rem;
@@ -117,24 +102,20 @@
             font-weight: 600;
             border-bottom: 1px solid #2d3a5e;
         }
-
         .number-table td {
             padding: 0.9rem 0.8rem;
             border-bottom: 1px solid #1e2a3e;
             vertical-align: middle;
         }
-
         .number-table tr:hover {
             background: #1e293b50;
         }
-
         .phone-number {
             font-family: 'Monaco', monospace;
             font-weight: 600;
             color: #facc15;
             font-size: 0.9rem;
         }
-
         .country-flag {
             display: inline-flex;
             align-items: center;
@@ -145,13 +126,11 @@
             font-size: 0.75rem;
             font-weight: 500;
         }
-
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-
         .btn-copy, .btn-otp {
             background: none;
             border: none;
@@ -165,7 +144,6 @@
             gap: 6px;
             transition: 0.2s;
         }
-
         .btn-copy {
             background: #1e293b;
             color: #cbd5e6;
@@ -174,7 +152,6 @@
         .btn-copy:hover {
             background: #334155;
         }
-
         .btn-otp {
             background: #1e3a5f;
             color: #90e0ff;
@@ -184,13 +161,11 @@
             filter: brightness(1.1);
             transform: translateY(-1px);
         }
-
         .empty-row td {
             text-align: center;
             padding: 2.5rem;
             color: #7e8aa8;
         }
-
         .footer-links {
             margin-top: 2rem;
             text-align: center;
@@ -202,7 +177,6 @@
             color: #7e8aa8;
             margin-top: 12px;
         }
-
         .admin-fab {
             position: fixed;
             bottom: 24px;
@@ -226,7 +200,6 @@
             transform: scale(1.05);
             background: #eab308;
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -349,11 +322,6 @@
             color: white;
             cursor: pointer;
         }
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #facc15;
-        }
         @media (max-width: 700px) {
             body { padding: 1rem; }
             .admin-item { flex-direction: column; align-items: stretch; }
@@ -363,9 +331,9 @@
 <body>
 <div class="container">
     <div class="hero">
-        <h1><i class="fas fa-cloud-upload-alt"></i> STOK NOKOS CLOUD</h1>
-        <p>Data sinkron otomatis ke semua perangkat · Pemasok resmi OTP</p>
-        <div class="badge-supplier"><i class="fas fa-globe"></i> CLOUD SYNC · UPDATE LANGSUNG TERSALUR</div>
+        <h1><i class="fas fa-boxes"></i> STOK NOKOS</h1>
+        <p>Pemasok resmi · nomor berbagai negara · OTP via link khusus per nomor</p>
+        <div class="badge-supplier"><i class="fas fa-database"></i> LOKAL STORAGE · BACKUP & RESTORE</div>
     </div>
 
     <div class="stats">
@@ -377,12 +345,12 @@
     <div class="numbers-section">
         <table class="number-table" id="numbersTable">
             <thead><tr><th>#</th><th>Nomor (Internasional)</th><th>Negara</th><th>Aksi</th></tr></thead>
-            <tbody id="tableBody"><tr class="empty-row"><td colspan="4">Memuat data dari cloud...<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Menyinkronkan...</div></td></tr></tbody>
+            <tbody id="tableBody"><tr class="empty-row"><td colspan="4">Memuat stok nomor...<div class="loading"><i class="fas fa-spinner fa-pulse"></i> </div></td></tr></tbody>
         </table>
     </div>
 
     <div class="footer-links">
-        <div class="note-tips">📌 Setiap nomor memiliki tautan OTP sendiri. Admin dapat mengelola nomor & link melalui panel admin (ikon kunci di kanan bawah). Data tersimpan di cloud dan langsung sinkron ke semua pengunjung.</div>
+        <div class="note-tips">📌 Setiap nomor memiliki tautan OTP tersendiri (diatur oleh pemasok). Klik tombol "Minta OTP" untuk mengirim permintaan ke channel/grup yang sudah ditentukan.</div>
     </div>
 </div>
 
@@ -391,7 +359,7 @@
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2><i class="fas fa-user-shield"></i> Admin Panel Nokos Cloud</h2>
+            <h2><i class="fas fa-user-shield"></i> Admin Panel Nokos</h2>
             <button class="close-modal" id="closeModalBtn">&times;</button>
         </div>
         <div id="adminPanelContent"></div>
@@ -399,22 +367,70 @@
 </div>
 
 <script>
-    // ======================= KONFIGURASI JSONBIN =======================
-    // ANDA HARUS MEMBUAT AKUN GRATIS DI https://jsonbin.io
-    // Setelah login, buat bin baru (public/private bebas) -> dapatkan Bin ID
-    // Lalu buat API Key di dashboard -> copy Master Key
-    // Ganti nilai di bawah ini dengan milik Anda.
-    const JSONBIN_BIN_ID = "YOUR_BIN_ID";      // Ganti dengan Bin ID Anda
-    const JSONBIN_API_KEY = "YOUR_API_KEY";    // Ganti dengan Master Key Anda
-    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
-    
-    // Jika belum diisi, sistem akan memperingatkan dan menggunakan localStorage sementara
-    let useCloud = (JSONBIN_BIN_ID !== "YOUR_BIN_ID" && JSONBIN_API_KEY !== "YOUR_API_KEY");
-    
-    // Data utama
+    // ======================= DATA STORAGE (LOCALSTORAGE) =======================
+    const STORAGE_KEY = 'nokos_supplier_stock_final';
+    // Fallback key dari versi sebelumnya (untuk migrasi otomatis)
+    const OLD_KEYS = ['nokos_advanced_stock', 'nokos_supplier_stock_global', 'nokos_supplier_stock'];
+
     let numbersList = [];        // array of { number, otpLink }
     let isAdmin = false;
-    let isLoading = true;
+
+    // Fungsi untuk migrasi data dari localStorage versi lama
+    function migrateFromOldVersions() {
+        for (let oldKey of OLD_KEYS) {
+            const oldData = localStorage.getItem(oldKey);
+            if (oldData) {
+                try {
+                    let parsed = JSON.parse(oldData);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        // Cek format: apakah array of string atau array of object
+                        if (typeof parsed[0] === 'string') {
+                            // format lama (hanya nomor) -> konversi ke object dengan default link
+                            return parsed.map(num => ({
+                                number: num,
+                                otpLink: "https://t.me/kami_otp_zone"
+                            }));
+                        } else if (parsed[0] && typeof parsed[0] === 'object' && parsed[0].number) {
+                            // format object lengkap
+                            return parsed;
+                        }
+                    }
+                } catch(e) {}
+            }
+        }
+        return null;
+    }
+
+    function loadData() {
+        // Coba ambil dari storage key baru
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                let parsed = JSON.parse(stored);
+                if (Array.isArray(parsed)) {
+                    numbersList = parsed;
+                    return;
+                }
+            } catch(e) {}
+        }
+        // Jika tidak ada, coba migrasi dari versi lama
+        const migrated = migrateFromOldVersions();
+        if (migrated) {
+            numbersList = migrated;
+            saveData(); // simpan ke format baru
+            return;
+        }
+        // Data default jika benar-benar kosong
+        numbersList = [
+            { number: "+628123456789", otpLink: "https://t.me/kami_otp_zone" },
+            { number: "+6285778899001", otpLink: "https://t.me/kaami_broken22" }
+        ];
+        saveData();
+    }
+
+    function saveData() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(numbersList));
+    }
 
     // Helper: flag & negara
     function getCountryInfo(number) {
@@ -471,117 +487,13 @@
         return digits.length >= 6;
     }
 
-    // ========== FUNGSI CLOUD ==========
-    async function loadFromCloud() {
-        if (!useCloud) {
-            console.warn("JSONBin tidak dikonfigurasi. Gunakan localStorage fallback.");
-            loadLocalFallback();
-            return;
-        }
-        try {
-            isLoading = true;
-            renderPublicTable(); // tampilkan loading
-            const response = await fetch(JSONBIN_URL, {
-                headers: { "X-Master-Key": JSONBIN_API_KEY }
-            });
-            if (!response.ok) throw new Error("Gagal mengambil data dari JSONBin");
-            const data = await response.json();
-            let cloudData = data.record;
-            if (cloudData && Array.isArray(cloudData.numbers)) {
-                numbersList = cloudData.numbers;
-                // validasi setiap item punya otpLink
-                numbersList = numbersList.map(item => ({
-                    number: item.number,
-                    otpLink: item.otpLink || "https://t.me/kami_otp_zone"
-                }));
-                saveToLocalBackup(); // simpan ke localStorage cadangan
-            } else {
-                // Jika bin kosong, inisialisasi default
-                numbersList = [
-                    { number: "+992005736433", otpLink: "https://t.me/kami_otp_zone" },
-                    { number: "+992002356232", otpLink: "https://t.me/kaami_broken22" },
-                    { number: "+628123456789", otpLink: "https://whatsapp.com/channel/0029Vb7vlvY4CrfdYO9znI1k" },
-                    { number: "+6285778899001", otpLink: "https://t.me/otp_group5" }
-                ];
-                await pushToCloud();
-            }
-        } catch (err) {
-            console.error(err);
-            alert("Gagal sinkron dari cloud. Menggunakan data lokal terakhir.");
-            loadLocalFallback();
-        }
-        isLoading = false;
-        renderPublicTable();
-        if (isAdmin) renderAdminPanel(); // refresh panel jika terbuka
-    }
-
-    async function pushToCloud() {
-        if (!useCloud) {
-            saveToLocalBackup();
-            return;
-        }
-        try {
-            const payload = { numbers: numbersList };
-            const response = await fetch(JSONBIN_URL, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Master-Key": JSONBIN_API_KEY
-                },
-                body: JSON.stringify(payload)
-            });
-            if (!response.ok) throw new Error("Gagal menyimpan ke cloud");
-            saveToLocalBackup();
-        } catch (err) {
-            console.error(err);
-            alert("Gagal menyimpan ke cloud, tapi data tetap tersimpan di perangkat ini.");
-            saveToLocalBackup();
-        }
-    }
-
-    // Fallback ke localStorage jika cloud error atau belum diatur
-    function loadLocalFallback() {
-        const local = localStorage.getItem("nokos_cloud_backup");
-        if (local) {
-            try {
-                const parsed = JSON.parse(local);
-                if (Array.isArray(parsed)) {
-                    numbersList = parsed;
-                    return;
-                }
-            } catch(e) {}
-        }
-        numbersList = [
-            { number: "+992005736433", otpLink: "https://t.me/kami_otp_zone" },
-            { number: "+992002356232", otpLink: "https://t.me/kaami_broken22" },
-            { number: "+628123456789", otpLink: "https://whatsapp.com/channel/0029Vb7vlvY4CrfdYO9znI1k" },
-            { number: "+6285778899001", otpLink: "https://t.me/otp_group5" }
-        ];
-    }
-    function saveToLocalBackup() {
-        localStorage.setItem("nokos_cloud_backup", JSON.stringify(numbersList));
-    }
-
-    // Fungsi yang dipanggil setelah ada perubahan data (tambah, edit, hapus)
-    async function updateDataAndSync(newList) {
-        numbersList = newList;
-        await pushToCloud();
-        renderPublicTable();
-        if (isAdmin) renderAdminPanel();
-    }
-
-    // Render tabel publik
     function renderPublicTable() {
         const tbody = document.getElementById('tableBody');
         const totalSpan = document.getElementById('totalStok');
         const negaraSpan = document.getElementById('negaraCount');
         if (!tbody) return;
-        if (isLoading) {
-            tbody.innerHTML = `<tr class="empty-row"><td colspan="4"><i class="fas fa-spinner fa-pulse"></i> Memuat data cloud...</td></tr>`;
-            return;
-        }
         if (numbersList.length === 0) {
-            tbody.innerHTML = `<tr class="empty-row"><td colspan="4">📭 Stok kosong. Admin akan segera menambah nomor.</td></tr>`;
+            tbody.innerHTML = `<tr class="empty-row"><td colspan="4">📭 Stok kosong. Tambah nomor lewat panel admin.</td></tr>`;
             totalSpan.innerText = '0';
             negaraSpan.innerText = '0';
             return;
@@ -667,7 +579,53 @@
         setTimeout(() => { this.innerHTML = original; }, 1000);
     }
 
-    // ========== ADMIN PANEL (dengan password) ==========
+    // =============== ADMIN PANEL ===============
+    function backupData() {
+        const dataStr = JSON.stringify(numbersList, null, 2);
+        const blob = new Blob([dataStr], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nokos_backup_${new Date().toISOString().slice(0,19)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        alert("Backup berhasil disimpan. Gunakan file ini untuk restore di perangkat lain.");
+    }
+
+    function restoreData(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                if (Array.isArray(imported) && imported.length >= 0) {
+                    let valid = true;
+                    for (let item of imported) {
+                        if (!item.number || typeof item.otpLink === 'undefined') {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if (valid) {
+                        numbersList = imported;
+                        saveData();
+                        renderPublicTable();
+                        if (isAdmin) renderAdminPanel();
+                        alert(`Berhasil restore ${numbersList.length} nomor.`);
+                    } else {
+                        alert('File tidak valid: format data salah. Pastikan file backup dari web ini.');
+                    }
+                } else {
+                    alert('File tidak valid: bukan array.');
+                }
+            } catch(err) {
+                alert('Gagal membaca file: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
     function renderAdminPanel() {
         const container = document.getElementById('adminPanelContent');
         if (!isAdmin) {
@@ -691,10 +649,9 @@
             return;
         }
 
-        // Tampilan admin setelah login
         container.innerHTML = `
             <div style="margin-bottom:1rem;">
-                <h3><i class="fas fa-plus-circle"></i> Tambah Nomor Baru (Cloud Sync)</h3>
+                <h3><i class="fas fa-plus-circle"></i> Tambah Nomor Baru</h3>
                 <div class="form-group">
                     <label>Nomor (contoh: +628123456789)</label>
                     <input type="text" id="newNumberAdmin" placeholder="+628123456789 atau 628123456789">
@@ -720,17 +677,25 @@
                 <button id="clearAllStockBtn" class="btn-danger" style="margin-left:12px;">Hapus SEMUA Stok</button>
             </div>
             <hr>
+            <div>
+                <h3><i class="fas fa-archive"></i> Backup & Restore Data (Pindah antar HP)</h3>
+                <div class="flex-btns">
+                    <button id="backupBtn" class="btn-secondary"><i class="fas fa-download"></i> Backup (Download JSON)</button>
+                    <label for="restoreFileInput" class="btn-secondary" style="display:inline-block; padding:8px 16px; border-radius:2rem; cursor:pointer;"><i class="fas fa-upload"></i> Restore (Upload file)</label>
+                    <input type="file" id="restoreFileInput" accept=".json" style="display:none;">
+                </div>
+                <div class="note-tips" style="margin-top:8px;">💡 Gunakan fitur ini untuk memindahkan stok ke HP lain: Backup dari HP yang sudah diisi, lalu Restore di HP target.</div>
+            </div>
+            <hr>
             <div class="admin-list">
-                <h3><i class="fas fa-edit"></i> Edit / Hapus Nomor & Link (Cloud)</h3>
+                <h3><i class="fas fa-edit"></i> Edit / Hapus Nomor & Link</h3>
                 <div id="adminItemsList"></div>
             </div>
-            ${!useCloud ? '<div class="note-tips" style="color:#ff8888;">⚠️ Cloud tidak dikonfigurasi. Data hanya disimpan di perangkat ini. Untuk sinkron ke semua perangkat, setup JSONBin terlebih dahulu.</div>' : '<div class="note-tips">✅ Cloud aktif. Setiap perubahan langsung tersimpan dan terlihat di semua perangkat.</div>'}
         `;
 
         renderAdminItemsList();
 
-        // Event tambah satu
-        document.getElementById('addSingleAdmin')?.addEventListener('click', async () => {
+        document.getElementById('addSingleAdmin')?.addEventListener('click', () => {
             const rawNum = document.getElementById('newNumberAdmin').value.trim();
             let link = document.getElementById('newLinkAdmin').value.trim();
             if (!rawNum) return alert('Masukkan nomor');
@@ -738,15 +703,15 @@
             if (!isValidNumber(formatted)) return alert('Nomor tidak valid (minimal 6 digit)');
             if (!link) link = "https://t.me/kami_otp_zone";
             if (numbersList.some(item => item.number === formatted)) return alert('Nomor sudah ada');
-            const newList = [...numbersList, { number: formatted, otpLink: link }];
-            await updateDataAndSync(newList);
+            numbersList.push({ number: formatted, otpLink: link });
+            saveData();
+            renderPublicTable();
+            renderAdminItemsList();
             document.getElementById('newNumberAdmin').value = '';
             document.getElementById('newLinkAdmin').value = '';
-            renderAdminItemsList();
         });
 
-        // Bulk import
-        document.getElementById('bulkAddAdmin')?.addEventListener('click', async () => {
+        document.getElementById('bulkAddAdmin')?.addEventListener('click', () => {
             const defaultLink = document.getElementById('defaultBulkLink').value.trim() || "https://t.me/kami_otp_zone";
             const text = document.getElementById('bulkNumbersArea').value;
             const lines = text.split(/\r?\n/);
@@ -762,18 +727,30 @@
                 added++;
             }
             if (added > 0) {
-                await updateDataAndSync(newNumbers);
+                numbersList = newNumbers;
+                saveData();
+                renderPublicTable();
                 renderAdminItemsList();
             }
             alert(`Ditambahkan: ${added}\nInvalid: ${invalid}\nDuplikat: ${dup}`);
             document.getElementById('bulkNumbersArea').value = '';
         });
 
-        // Hapus semua
-        document.getElementById('clearAllStockBtn')?.addEventListener('click', async () => {
-            if (confirm('⚠️ HAPUS SEMUA NOMOR? Tindakan ini permanen dan akan terhapus di semua perangkat.')) {
-                await updateDataAndSync([]);
+        document.getElementById('clearAllStockBtn')?.addEventListener('click', () => {
+            if (confirm('⚠️ HAPUS SEMUA NOMOR? Tindakan ini permanen.')) {
+                numbersList = [];
+                saveData();
+                renderPublicTable();
                 renderAdminItemsList();
+            }
+        });
+
+        document.getElementById('backupBtn')?.addEventListener('click', () => backupData());
+        const fileInput = document.getElementById('restoreFileInput');
+        fileInput?.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                restoreData(e.target.files[0]);
+                fileInput.value = '';
             }
         });
     }
@@ -797,36 +774,37 @@
             `;
         });
         container.innerHTML = html;
-        // Simpan link
         document.querySelectorAll('.save-link-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
+            btn.addEventListener('click', () => {
                 const idx = parseInt(btn.getAttribute('data-index'));
                 const newLink = document.getElementById(`link_${idx}`).value.trim();
-                if (!newLink) return alert('Link tidak boleh kosong');
-                const newList = [...numbersList];
-                newList[idx].otpLink = newLink;
-                await updateDataAndSync(newList);
-                renderAdminItemsList();
+                if (newLink) {
+                    numbersList[idx].otpLink = newLink;
+                    saveData();
+                    renderPublicTable();
+                    renderAdminItemsList();
+                } else {
+                    alert('Link tidak boleh kosong');
+                }
             });
         });
-        // Hapus item
         document.querySelectorAll('.delete-item-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
+            btn.addEventListener('click', () => {
                 const idx = parseInt(btn.getAttribute('data-index'));
                 if (confirm(`Hapus nomor ${numbersList[idx].number} ?`)) {
-                    const newList = numbersList.filter((_, i) => i !== idx);
-                    await updateDataAndSync(newList);
+                    numbersList.splice(idx, 1);
+                    saveData();
+                    renderPublicTable();
                     renderAdminItemsList();
                 }
             });
         });
     }
 
-    // Modal admin
+    // Modal
     const modal = document.getElementById('adminModal');
     const fab = document.getElementById('adminFab');
     const closeModalBtn = document.getElementById('closeModalBtn');
-
     fab.addEventListener('click', () => {
         modal.classList.add('active');
         renderAdminPanel();
@@ -838,8 +816,9 @@
         if (e.target === modal) modal.classList.remove('active');
     });
 
-    // Mulai aplikasi: load dari cloud
-    loadFromCloud();
+    // Inisialisasi
+    loadData();
+    renderPublicTable();
 </script>
 </body>
 </html>
